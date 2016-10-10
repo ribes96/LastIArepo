@@ -3,8 +3,11 @@
  */
 package dominio;
 
-import java.util.*;
-import IA.Azamon.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import IA.Azamon.Oferta;
+import IA.Azamon.Paquete;
 
 /**
  *
@@ -12,11 +15,15 @@ import IA.Azamon.*;
 public class Estado {
 	//Atributos
 	private double precioAlmacenamiento;
-	private ArrayList<SubOferta> ofertas;
-	private ArrayList<SubPaquete> paquetes;
+	private static ArrayList<Oferta> ofertas;
+	private static ArrayList<Paquete> paquetes;
+	private ArrayList<LinkedList<Integer> > ofertasAPaquetes;
+	private ArrayList<Integer> paquetesAOfertas;
+	
+	public static final int randomize = 1;
 	
 	//Constructoras
-	public Estado (double precio, ArrayList<SubPaquete> pacs, ArrayList<SubOferta> ofs){
+	public Estado (double precio, ArrayList<Paquete> pacs, ArrayList<Oferta> ofs){
 		precioAlmacenamiento = precio;
 		paquetes = pacs;
 		ofertas = ofs;
@@ -25,8 +32,8 @@ public class Estado {
 	//Consultoras
 	double obtenerCosteEconomico(){
 		double coste = 0;
-		for (SubOferta of : ofertas) {
-			coste += of.getCoste() + precioAlmacenamiento*of.getDias();
+		for (Oferta of : ofertas) {
+			coste += of.getPrecio() + precioAlmacenamiento*of.getDias();
 		}
 		return coste;
 	}
@@ -56,6 +63,33 @@ public class Estado {
 	}
 
 	//Escritoras
+	/**
+	 * Generadora de la solucion inicial
+	 * @param algoritmo
+	 * @param seed
+	 * @pre Algoritmo es uno de los aportados
+	 * @post El parámetro implícito tiene solución inicial
+	 */
+	void generarSolucionInicial (int algoritmo, long seed){
+		try {
+			switch (algoritmo){
+			case randomize:
+				paquetesAOfertas = new ArrayList<Integer>();
+				for (int i = 0; i< paquetes.size(); ++i) paquetesAOfertas.add(i);
+				Collections.shuffle(paquetesAOfertas, new Random(seed));
+				
+				for (int paquete: paquetesAOfertas){
+					ofertasAPaquetes.get(paquetesAOfertas.get(paquete)).add(paquete);
+				}
+				break;
+				default: throw new Exception("No existe este algoritmo");
+			}
+		}
+		catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	void intercambiar (Integer p1, Integer p2){
 		
 	}
