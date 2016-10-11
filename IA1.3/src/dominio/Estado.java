@@ -4,7 +4,10 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 import IA.Azamon.Oferta;
 import IA.Azamon.Paquete;
@@ -68,7 +71,7 @@ public class Estado {
 	 * @param algoritmo
 	 * @param seed
 	 * @pre Algoritmo es uno de los aportados
-	 * @post El parámetro implícito tiene solución inicial
+	 * @post El parametro implicito tiene solucion inicial
 	 */
 	void generarSolucionInicial (int algoritmo, long seed){
 		try {
