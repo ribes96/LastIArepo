@@ -4,7 +4,6 @@
 package dominio;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -23,9 +22,11 @@ public class Estado {
 	private ArrayList<LinkedList<Integer> > ofertasAPaquetes;
 	private ArrayList<Integer> paquetesAOfertas;
 	
-	public static final int randomize = 1;
+	public static final String aleatorio = "aleatorio";
+	public static final String unoAUno = "uno a uno";
+	public static final String rellenar = "rellenar";
 	
-	//Constructoras
+	//Constructora
 	public Estado (double precio, ArrayList<Paquete> pacs, ArrayList<Oferta> ofs){
 		precioAlmacenamiento = precio;
 		paquetes = pacs;
@@ -70,25 +71,45 @@ public class Estado {
 	 * Generadora de la solucion inicial
 	 * @param algoritmo
 	 * @param seed
-	 * @pre Algoritmo es uno de los aportados
+	 * @pre Algoritmo es uno de las constantes de clase
 	 * @post El parametro implicito tiene solucion inicial
 	 */
-	void generarSolucionInicial (int algoritmo, long seed){
+	void generarSolucionInicial (String algoritmo, long seed){
 		try {
 			switch (algoritmo){
-			case randomize:
+			case aleatorio:
 				paquetesAOfertas = new ArrayList<Integer>();
-				for (int i = 0; i< paquetes.size(); ++i) paquetesAOfertas.add(i);
-				Collections.shuffle(paquetesAOfertas, new Random(seed));
-				
-				for (int paquete: paquetesAOfertas){
-					ofertasAPaquetes.get(paquetesAOfertas.get(paquete)).add(paquete);
-				}
+				for (int i = 0; i< paquetes.size(); ++i) paquetesAOfertas.add(new Random(seed).nextInt());
+				for (int paquete: paquetesAOfertas) ofertasAPaquetes.get(paquetesAOfertas.get(paquete)).add(paquete);
 				break;
-				default: throw new Exception("No existe este algoritmo");
+			case unoAUno:
+				paquetesAOfertas = new ArrayList<Integer>();
+				for (int i = 0; i<paquetes.size(); ++i) paquetesAOfertas.add(i);
+				for (int paquete: paquetesAOfertas) ofertasAPaquetes.get(paquetesAOfertas.get(paquete)).add(paquete);
+				break;
+			case rellenar:
+				ofertasAPaquetes = new ArrayList<LinkedList<Integer> >(ofertas.size());
+				ArrayList<Double> espacioEnOferta = new ArrayList<Double>();
+				for (int i = 0; i < ofertas.size(); ++i) espacioEnOferta.add(ofertas.get(i).getPesomax());
+				int idOferta = 0, idPaquete = 0;				
+				while (idOferta<ofertasAPaquetes.size()){
+					while (idPaquete<paquetes.size()){
+						if (paquetes.get(idPaquete).getPeso() < espacioEnOferta.get(idOferta)){
+							paquetesAOfertas.set(idPaquete, new Integer(idOferta));
+							ofertasAPaquetes.get(idOferta).add(idPaquete);
+							espacioEnOferta.set(idOferta, espacioEnOferta.get(idOferta)-paquetes.get(idPaquete).getPeso());
+						}
+						++idPaquete;
+					}
+					++idOferta;
+				}
+			default: throw new IllegalArgumentException("No existe este algoritmo");
 			}
 		}
-		catch (Exception e){
+		catch (IllegalArgumentException e){
+			System.out.println(e.getMessage());
+		}
+		catch (NullPointerException e){
 			System.out.println(e.getMessage());
 		}
 	}
