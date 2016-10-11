@@ -1,5 +1,7 @@
 package dominio;
 
+import aima.search.framework.HeuristicFunction;
+
 
 public class FuncionHeuristica implements HeuristicFunction {
 
