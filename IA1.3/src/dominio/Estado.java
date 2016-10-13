@@ -198,23 +198,30 @@ public class Estado {
 	 */
 	void generarSolucionInicial (String algoritmo, long seed){
 		try {
+			for (int i = 0; i<pesosActuales.length; ++i) pesosActuales[i] = 0;
 			switch (algoritmo){
 			case aleatorio:
 				paquetesAOfertas = new ArrayList<Integer>();
-				for (int i = 0; i< paquetes.size(); ++i) paquetesAOfertas.add(new Random(seed).nextInt());
+				for (int i = 0; i< paquetes.size(); ++i){
+					paquetesAOfertas.add(new Random(seed).nextInt());
+					pesosActuales[paquetesAOfertas.get(i)] += paquetes.get(i).getPeso();
+				}
 				for (int paquete: paquetesAOfertas) ofertasAPaquetes.get(paquetesAOfertas.get(paquete)).add(paquete);
 				break;
 			case unoAUno:
 				paquetesAOfertas = new ArrayList<Integer>();
-				for (int i = 0; i<paquetes.size(); ++i) paquetesAOfertas.add(i);
+				for (int i = 0; i<paquetes.size(); ++i){
+					paquetesAOfertas.add(i);
+					pesosActuales[paquetesAOfertas.get(i)] += paquetes.get(i).getPeso();
+				}
 				for (int paquete: paquetesAOfertas) ofertasAPaquetes.get(paquetesAOfertas.get(paquete)).add(paquete);
 				break;
 			case rellenar:
 				ofertasAPaquetes = new ArrayList<LinkedList<Integer> >(ofertas.size());
 				ArrayList<Double> espacioEnOferta = new ArrayList<Double>();
 				for (int i = 0; i < ofertas.size(); ++i) espacioEnOferta.add(ofertas.get(i).getPesomax());
-				int idOferta = 0, idPaquete = 0;				
-				while (idOferta<ofertasAPaquetes.size()){
+				int idPaquete = 0;				
+				for (int idOferta = 0; idOferta<ofertasAPaquetes.size(); ++idOferta){
 					while (idPaquete<paquetes.size()){
 						if (paquetes.get(idPaquete).getPeso() < espacioEnOferta.get(idOferta)){
 							paquetesAOfertas.set(idPaquete, new Integer(idOferta));
@@ -223,8 +230,8 @@ public class Estado {
 						}
 						++idPaquete;
 					}
-					++idOferta;
 				}
+				for (int i = 0; i < pesosActuales.length; ++i) pesosActuales[i] = ofertas.get(i).getPesomax() - espacioEnOferta.get(i);
 			default: throw new IllegalArgumentException("No existe este algoritmo");
 			}
 		}
