@@ -17,7 +17,7 @@ public class SubOferta extends Oferta {
 	public SubOferta(double pesomax, double precio, int dias) {
 		super(pesomax, precio, dias);
 		pesoActual = 0;
-		misPaquetes = new LinkedList<>();
+		misPaquetes = new LinkedList<SubPaquete>();
 	}
 	
 	/**

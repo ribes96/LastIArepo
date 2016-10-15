@@ -70,9 +70,9 @@ public class Estado {
 	 * Crea un estado y una solución aleatorios según los parámetros
 	 * @param precio Precio de almacenamiento
 	 * @param prop La proporción entre el peso a enviar y el máximo enviable
-	 * @param seedtrans Seed para generar el transporte (las ofertas)
+	 * @param seedTrans Seed para generar el transporte (las ofertas)
 	 * @param npaq Cantidad de paquetes aleatorios a generar
-	 * @param seedpac Seed para generar los paquetes
+	 * @param seedPac Seed para generar los paquetes
 	 * @param algoritmo Indica el algoritmo a utilizar para generar la solución inicial
 	 * @param seedAlg Seed para generar la solución inicial
 	 */
