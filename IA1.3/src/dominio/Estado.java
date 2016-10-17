@@ -44,6 +44,20 @@ public class Estado {
 	public static final String unoAUno = "uno a uno";
 	public static final String rellenar = "rellenar";
 	
+	public static final String intToString(int algoritme){
+		switch (algoritme){
+		case 1:
+			return aleatorio;
+		case 2:
+			return unoAUno;
+		case 3:
+			return rellenar;
+		default:
+			System.out.println("Conversion de int a String invalida");
+			return null;
+		}
+	}
+	
 	//Constructores
 	
 	/**
