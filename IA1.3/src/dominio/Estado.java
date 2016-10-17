@@ -106,7 +106,12 @@ public class Estado {
 	}
 	
 	//Modificadoras
-	
+
+	/**
+	 *
+	 * @param ofsApacs
+	 * @param pacsAofs
+	 */
 	public void hacerAsignacion(ArrayList<LinkedList<Integer> > ofsApacs, ArrayList<Integer> pacsAofs) {
 		ofertasAPaquetes = ofsApacs;
 		paquetesAOfertas = pacsAofs;
@@ -120,8 +125,13 @@ public class Estado {
 			++i;
 		}
 	}
-	
+
 	//Consultoras
+
+	/**
+	 *
+	 * @return
+	 */
 	public double obtenerCosteEconomico(){
 		double coste = 0;
 		for (Oferta of : ofertas) {
@@ -139,9 +149,9 @@ public class Estado {
 	}
 	
 	/**
-	 * Retorna todos los paquetes que estan asignados a la oferta t
-	 * @param t
-	 * @return
+	 * Funcion que retorna todos los paquetes que estan asignados a la oferta t
+	 * @param t identificador de la oferta t.
+	 * @return Conjunto de paquetes assignados a la oferta t.
 	 */
 	Paquetes obtenerListaDePaquetes (Integer t){
 		LinkedList<Integer> lista = ofertasAPaquetes.get(t);
@@ -153,6 +163,13 @@ public class Estado {
 		return (Paquetes)retorno;
 	}
 
+	/**
+	 * Funcion que indica si se podra realizar el cambio entre dos paquetes a ofertas distintas
+	 * @param p1 Identificador del primer paquete.
+	 * @param p2 Identificador del segundo paquete.
+	 * @return El resultado sera falso si los paquetes estan en la misma oferta o el cambio supera el peso maximo.
+	 * De otro modd devolvera cierto.
+	 */
 	Boolean sePuedeIntercambiar (Integer p1, Integer p2){
 		Paquete pac1 = paquetes.get(p1);
 		Paquete pac2 = paquetes.get(p2);		
@@ -294,6 +311,5 @@ public class Estado {
 	void ponerPrecioAlmacenamiento(double nuevoPrecio){
 		precioAlmacenamiento = nuevoPrecio;
 	}
-
 
 }
