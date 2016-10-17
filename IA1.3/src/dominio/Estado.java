@@ -164,11 +164,11 @@ public class Estado {
 	}
 
 	/**
-	 * Funcion que indica si se podra realizar el cambio entre dos paquetes a ofertas distintas
+	 * Funcion que indica si se podra realizar el cambio de dos paquetes entre ofertas distintas
 	 * @param p1 Identificador del primer paquete.
 	 * @param p2 Identificador del segundo paquete.
 	 * @return El resultado sera falso si los paquetes estan en la misma oferta o el cambio supera el peso maximo.
-	 * De otro modd devolvera cierto
+	 * De otro modo devolvera cierto.
 	 */
 	Boolean sePuedeIntercambiar (Integer p1, Integer p2){
 		Paquete pac1 = paquetes.get(p1);
@@ -186,7 +186,14 @@ public class Estado {
 		
 		return true;
 	}
-	
+
+	/**
+	 * Funcion que indica si se puede mover el paquete p a la oferta t.
+	 * @param p Identificador del paquete a mover
+	 * @param t Identificador de la oferta a la que queremos asignar el paquete p
+	 * @return El resultado sera falso si el paquete p esta en la oferta t o si el hecho de asignar el paquete
+	 * p a la oferta t supera el peso maximo. De otro modo devolvera cierto
+	 */
 	Boolean sePuedeMover (Integer p, Integer t){
 		Paquete pac = paquetes.get(p);
 		Oferta of = ofertas.get(paquetesAOfertas.get(p));
@@ -207,7 +214,7 @@ public class Estado {
 
 	//Escritoras
 	/**
-	 * Generadora de la solucion inicial
+	 * Funcion Generadora de la solucion inicial
 	 * @param algoritmo
 	 * @param seed
 	 * @pre Algoritmo es uno de las constantes de clase
