@@ -155,7 +155,7 @@ public class Estado {
 	 */
 	Paquetes obtenerListaDePaquetes (Integer t){
 		LinkedList<Integer> lista = ofertasAPaquetes.get(t);
-		
+
 		ArrayList<Paquete> retorno = new ArrayList<Paquete>();
 		for (Integer i : lista) {
 			retorno.add(paquetes.get(i));
@@ -168,7 +168,7 @@ public class Estado {
 	 * @param p1 Identificador del primer paquete.
 	 * @param p2 Identificador del segundo paquete.
 	 * @return El resultado sera falso si los paquetes estan en la misma oferta o el cambio supera el peso maximo.
-	 * De otro modd devolvera cierto.
+	 * De otro modd devolvera cierto
 	 */
 	Boolean sePuedeIntercambiar (Integer p1, Integer p2){
 		Paquete pac1 = paquetes.get(p1);
