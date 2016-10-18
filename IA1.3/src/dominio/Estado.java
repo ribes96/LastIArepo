@@ -6,6 +6,7 @@ package dominio;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
+import java.lang.Math;
 
 import IA.Azamon.Oferta;
 import IA.Azamon.Paquete;
@@ -299,7 +300,14 @@ public class Estado {
 			case aleatorio:
 				paquetesAOfertas = new ArrayList<Integer>();
 				for (int i = 0; i < paquetes.size(); ++i) {
-					paquetesAOfertas.add(new Random(seed).nextInt());
+					boolean metido = false;
+					for (int j = 0; j < 10 && !metido; ++j){ 
+						int ofertaARellenar = Math.abs(new Random(seed).nextInt()) % ofertas.size();
+						if (ofertas.get(ofertaARellenar).getPesomax() >= paquetes.get(i).getPeso() + pesosActuales[ofertaARellenar]){
+							paquetesAOfertas.set(i, ofertaARellenar);
+							metido = true;
+						}
+					}
 					pesosActuales[paquetesAOfertas.get(i)] += paquetes.get(i).getPeso();
 				}
 				for (int paquete : paquetesAOfertas)
