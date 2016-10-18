@@ -299,7 +299,7 @@ public class Estado {
 			case aleatorio:
 				paquetesAOfertas = new ArrayList<Integer>();
 				for (int i = 0; i < paquetes.size(); ++i) {
-					paquetesAOfertas.add(new Random(seed).nextInt());
+					paquetesAOfertas.add(new Random(seed).nextInt() % ofertas.size()); 		//comprobar que no excedeixi el pes
 					pesosActuales[paquetesAOfertas.get(i)] += paquetes.get(i).getPeso();
 				}
 				for (int paquete : paquetesAOfertas)
