@@ -55,6 +55,8 @@ public class Estado {
 	public static final String aleatorio = "aleatorio";
 	public static final String unoAUno = "uno a uno";
 	public static final String rellenar = "rellenar";
+	public static String SWAP = "SWAP";
+	public static String MOVE = "MOVE";
 
 	public static final String intToString(int algoritme) {
 		switch (algoritme) {
@@ -298,11 +300,13 @@ public class Estado {
 				pesosActuales[i] = 0;
 			switch (algoritmo) {
 			case aleatorio:
-				paquetesAOfertas = new ArrayList<Integer>();
+				paquetesAOfertas = new ArrayList<Integer>(paquetes.size());
+				System.out.println("El tamaño de paquetesAOfertas es " + paquetesAOfertas.size());
+				System.out.println("Mientras que el tamano de paquetes es " + paquetes.size());
 				for (int i = 0; i < paquetes.size(); ++i) {
 					boolean metido = false;
 					for (int j = 0; j < 10 && !metido; ++j){ 
-						int ofertaARellenar = Math.abs(new Random(seed).nextInt()) % ofertas.size();
+						int ofertaARellenar = new Random(seed).nextInt(ofertas.size());
 						if (ofertas.get(ofertaARellenar).getPesomax() >= paquetes.get(i).getPeso() + pesosActuales[ofertaARellenar]){
 							paquetesAOfertas.set(i, ofertaARellenar);
 							metido = true;

@@ -86,10 +86,21 @@ public class IA1 {
 	}
 
 	private static void IA1SimulatedAnnealing(Estado estado) {
+		Scanner in = new Scanner(System.in);
+		int k;
+		double lambda;
+		int iteraciones;
+		
+		do {
+			System.out.println("Indica la k, la lambda, la cantidad de iteraciones");
+			k = in.nextInt();
+			lambda = in.nextDouble();
+			iteraciones = in.nextInt();
+		} while (k <= 1 || lambda <= 0.0 || iteraciones < 10);
 		System.out.println("\nIA15 Breadth First  -->");
         try {
             Problem problem =  new Problem(estado,new FuncionSucesoraSimulatedAnnealing(), new PruebaDeFin());
-            Search search =  new SimulatedAnnealingSearch();
+            Search search =  new SimulatedAnnealingSearch(iteraciones,100,k,lambda);
             SearchAgent agent = new SearchAgent(problem,search);
             
             System.out.println();
@@ -98,6 +109,7 @@ public class IA1 {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        in.close();
 	}
     
     @SuppressWarnings("rawtypes")
