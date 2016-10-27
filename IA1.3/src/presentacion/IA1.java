@@ -49,7 +49,7 @@ public class IA1 {
 		
 		
 		Estado estado = new Estado(precioAlmacenamiento, prop, seed, npac, seed, Estado.intToString(algoritmoInicial), seed);
-		
+		System.out.println("Hola");
     	
     	int algoritmo;
 		do {

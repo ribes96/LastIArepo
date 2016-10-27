@@ -22,6 +22,8 @@
  		for (int i = 0; i < estado.getNumPaquetes(); ++i) {
  			for (int j = i+1; j < estado.getNumPaquetes(); ++j) {
  				if (estado.sePuedeIntercambiar(i,j)) {
+ 					//borrar esta linea de abajo
+ 					if (estado.getOAP() == null) System.out.println("Tururú");
  					Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO());
  					nuevoEst.intercambiar(i, j);
  					estados.add(nuevoEst);
