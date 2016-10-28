@@ -6,6 +6,7 @@ package dominio;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
+//import java.lang.Math;
 
 import IA.Azamon.Oferta;
 import IA.Azamon.Paquete;
@@ -54,6 +55,8 @@ public class Estado {
 	public static final String aleatorio = "aleatorio";
 	public static final String unoAUno = "uno a uno";
 	public static final String rellenar = "rellenar";
+	public static String SWAP = "SWAP";
+	public static String MOVE = "MOVE";
 
 	public static final String intToString(int algoritme) {
 		switch (algoritme) {
@@ -293,13 +296,30 @@ public class Estado {
 	 */
 	void generarSolucionInicial(String algoritmo, long seed) {
 		try {
-			for (int i = 0; i < pesosActuales.length; ++i)
+			for (int i = 0; i < ofertas.size(); ++i)
 				pesosActuales[i] = 0;
 			switch (algoritmo) {
 			case aleatorio:
 				paquetesAOfertas = new ArrayList<Integer>();
+				ofertasAPaquetes = new ArrayList<LinkedList<Integer>>();
+				for (int r = 0; r < ofertas.size(); ++r) {
+					ofertasAPaquetes.add(new LinkedList<Integer>());
+				}
+				Random myRandom = new Random(seed);
+				System.out.println("El tamaño de paquetesAOfertas es " + paquetesAOfertas.size());
+				System.out.println("Mientras que el tamano de paquetes es " + paquetes.size());
 				for (int i = 0; i < paquetes.size(); ++i) {
-					paquetesAOfertas.add(new Random(seed).nextInt() % ofertas.size()); 		//comprobar que no excedeixi el pes
+					boolean metido = false;
+					for (int j = 0; j < 1000 && !metido; ++j){ 
+						int ofertaARellenar = myRandom.nextInt(ofertas.size());
+						if (ofertas.get(ofertaARellenar).getPesomax() >= paquetes.get(i).getPeso() + pesosActuales[ofertaARellenar]){
+							paquetesAOfertas.add(ofertaARellenar);
+							ofertasAPaquetes.get(ofertaARellenar).add(i);
+							metido = true;
+						}
+					}
+					if (!metido) System.out.println("----------------------------------Alarma--------------");
+					System.out.println("El tamaño de paquetesAOfertas es " + paquetesAOfertas.size() + " v2");
 					pesosActuales[paquetesAOfertas.get(i)] += paquetes.get(i).getPeso();
 				}
 				for (int paquete : paquetesAOfertas)
@@ -367,8 +387,12 @@ public class Estado {
 		paquetesAOfertas.set(p1, o2);
 		paquetesAOfertas.set(p2, o1);
 
+		System.out.println("El valor de o1 y o2 es " + o1 + " " + o2);
+		System.out.println("La cantidad de ofertas que hay es " + ofertas.size());
+		if (pac2 == null) System.out.println("pac2 es nulo");
+		if (pac1 == null) System.out.println("pac1 es nulo");
 		pesosActuales[o1] += pac2.getPeso() - pac1.getPeso();
-		pesosActuales[o1] += pac2.getPeso() - pac1.getPeso();
+		pesosActuales[o2] += pac1.getPeso() - pac2.getPeso();
 	}
 
 	void mover(Integer p, Integer t) {
@@ -401,7 +425,7 @@ public class Estado {
 	public Estado(ArrayList<LinkedList<Integer>> OAP, ArrayList<Integer> PAO) {
 		paquetesAOfertas = new ArrayList<Integer>();
 		ofertasAPaquetes = new ArrayList<LinkedList<Integer>>();
-
+		if (OAP == null) System.out.println("Tenemos un objeto nulo");
 		for (Integer i = 0; i < OAP.size(); ++i) {
 			LinkedList<Integer> miLista = new LinkedList<Integer>();
 			for (Integer miInt : OAP.get(i)) {
@@ -417,6 +441,7 @@ public class Estado {
 	}
 
 	public ArrayList<LinkedList<Integer>> getOAP() {
+		if (ofertasAPaquetes == null) System.out.println("Patata");
 		return ofertasAPaquetes;
 	}
 
