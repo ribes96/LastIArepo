@@ -270,8 +270,8 @@ public class Estado {
 			retVal += s;
 		}
 		double coste = obtenerCosteEconomico();
-		String s = "----------------------------------\nCoste total: " + coste;
-		retVal += coste;
+		String s = "----------------------------------\nCoste total: " + String.valueOf(coste);
+		retVal += s;
 		return retVal;
 	}
 

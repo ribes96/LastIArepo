@@ -101,17 +101,17 @@ public class IA1 {
 			k = in.nextInt();
 			lambda = in.nextDouble();
 			iteraciones = in.nextInt();
-		} while (k <= 1 || lambda <= 0.0 || iteraciones < 10);
+		} while (k < 1 || lambda <= 0.0 || iteraciones < 10);
 		System.out.println("\nIA15 Breadth First  -->");
         try {
             Problem problem =  new Problem(estado,new FuncionSucesoraSimulatedAnnealing(), new PruebaDeFin(), new FuncionHeuristicaSimple());
-            Search search =  new SimulatedAnnealingSearch(iteraciones,100,k,lambda);
+            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(iteraciones,1000,k,lambda);
             SearchAgent agent = new SearchAgent(problem,search);
             System.out.println("TAMANY AGENT" + ' ' + agent.getActions().size() );
 
             System.out.println();
 
-            printActions(agent.getActions());
+            //printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
         } catch (Exception e) {
             e.printStackTrace();

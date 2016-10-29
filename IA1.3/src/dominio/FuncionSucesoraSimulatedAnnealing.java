@@ -26,11 +26,9 @@ public class FuncionSucesoraSimulatedAnnealing implements SuccessorFunction {
 				aOferta = myRandom.nextInt(estado.getNumOfertas());
 			} while (aOferta.equals(estado.getPAO().get(aleaPac)) || !estado.sePuedeMover(aleaPac, aOferta));
 			Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
-			
-			
 			nuevoEst.mover(aleaPac, aOferta);
 			double v = FHS.getHeuristicValue(nuevoEst);
-			String S = Estado.MOVE + " " + aleaPac + " " + aOferta + " Coste(" + v +") ---> " + nuevoEst.aString();
+			String S = "MOVE  " + aleaPac + " " + aOferta + " Coste(" + v +") ===> " + nuevoEst.aString();
 			retVal.add(new Successor(S, nuevoEst));
 		}
 		else {
@@ -41,10 +39,10 @@ public class FuncionSucesoraSimulatedAnnealing implements SuccessorFunction {
 				j = myRandom.nextInt(estado.getNumPaquetes());
 			} while (i.equals(j) || !estado.sePuedeIntercambiar(i, j));
 			Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
-				nuevoEst.intercambiar(i, j);
-				double v = FHS.getHeuristicValue(nuevoEst);
-				String S = Estado.SWAP + " " + i + " " + j + " Coste(" + v +") ---> " + nuevoEst.aString();
-				retVal.add(new Successor(S, nuevoEst));
+			nuevoEst.intercambiar(i, j);
+			double v = FHS.getHeuristicValue(nuevoEst);
+			String S = "SWAP  " + i + " " + j + " Coste(" + v +") ===> " + nuevoEst.aString();
+			retVal.add(new Successor(S, nuevoEst));
 		}
 		return retVal;
 	}
