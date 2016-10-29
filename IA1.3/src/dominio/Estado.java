@@ -343,6 +343,7 @@ public class Estado {
 			case rellenar:
 				//Pone cada paquete en una oferta distinta, hasta que se queda sin, y vuelve a empezar
 				/*
+				 * hola
 				ofertasAPaquetes = new ArrayList<LinkedList<Integer>>(ofertas.size());
 				ArrayList<Double> espacioEnOferta = new ArrayList<Double>();
 				for (int i = 0; i < ofertas.size(); ++i)
