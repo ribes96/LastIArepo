@@ -25,7 +25,7 @@ public class FuncionSucesoraSimulatedAnnealing implements SuccessorFunction {
 			do {
 				aOferta = myRandom.nextInt(estado.getNumOfertas());
 			} while (aOferta.equals(estado.getPAO().get(aleaPac)) || !estado.sePuedeMover(aleaPac, aOferta));
-			Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO());
+			Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
 			
 			
 			nuevoEst.mover(aleaPac, aOferta);
@@ -40,7 +40,7 @@ public class FuncionSucesoraSimulatedAnnealing implements SuccessorFunction {
 			do {
 				j = myRandom.nextInt(estado.getNumPaquetes());
 			} while (i.equals(j) || !estado.sePuedeIntercambiar(i, j));
-			Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO());
+			Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
 				nuevoEst.intercambiar(i, j);
 				double v = FHS.getHeuristicValue(nuevoEst);
 				String S = Estado.SWAP + " " + i + " " + j + " Coste(" + v +") ---> " + nuevoEst.aString();
