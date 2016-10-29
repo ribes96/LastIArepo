@@ -201,7 +201,7 @@ public class Estado {
 	 * @param  t identificador de la oferta t.
 	 * @return Conjunto de paquetes assignados a la oferta t.
 	 */
-	Paquetes obtenerListaDePaquetes(Integer t) {
+	public Paquetes obtenerListaDePaquetes(Integer t) {
 		LinkedList<Integer> lista = ofertasAPaquetes.get(t);
 
 		ArrayList<Paquete> retorno = new ArrayList<Paquete>();
@@ -316,13 +316,28 @@ public class Estado {
 					ofertasAPaquetes.get(paquetesAOfertas.get(paquete)).add(paquete);
 				break;
 			case unoAUno:
-				paquetesAOfertas = new ArrayList<Integer>();
+				/*paquetesAOfertas = new ArrayList<Integer>();
 				for (int i = 0; i < paquetes.size(); ++i) {
 					paquetesAOfertas.add(i);
 					pesosActuales[paquetesAOfertas.get(i)] += paquetes.get(i).getPeso();
 				}
 				for (int paquete : paquetesAOfertas)
-					ofertasAPaquetes.get(paquetesAOfertas.get(paquete)).add(paquete);
+
+				*/
+				double prop = 1;
+				int indexOferta = 0;
+				for (int i =0; i < paquetes.size(); ++i){
+					if(ofertas.get(indexOferta).getPesomax()*prop >= pesosActuales[indexOferta]+paquetes.get(i).getPeso()){
+						paquetesAOfertas.add(indexOferta);
+						ofertasAPaquetes.get(indexOferta).add(i);
+						pesosActuales[indexOferta]+=paquetes.get(i).getPeso();
+					}
+					else{
+						indexOferta++;
+						indexOferta %= ofertas.size();
+						i--;
+					}
+				}
 				break;
 			case rellenar:
 				ofertasAPaquetes = new ArrayList<LinkedList<Integer>>(ofertas.size());

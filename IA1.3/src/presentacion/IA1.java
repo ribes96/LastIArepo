@@ -107,7 +107,7 @@ public class IA1 {
             Problem problem =  new Problem(estado,new FuncionSucesoraSimulatedAnnealing(), new PruebaDeFin(), new FuncionHeuristicaSimple());
             Search search =  new SimulatedAnnealingSearch(iteraciones,100,k,lambda);
             SearchAgent agent = new SearchAgent(problem,search);
-            
+            System.out.println("TAMANY AGENT" + ' ' + agent.getActions().size() );
             System.out.println();
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
