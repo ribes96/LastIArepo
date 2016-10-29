@@ -30,7 +30,7 @@ import aima.search.framework.SuccessorFunction;
  					
  					Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
  					nuevoEst.intercambiar(i, j);
- 					String S = "SWAP: " + i + " " + j + " ==> Coste: " + nuevoEst.obtenerCosteEconomico();
+ 					String S = "SWAP: " + i + " " + j + " ===> Coste: " + nuevoEst.obtenerCosteEconomico();
  					retVal.add(new Successor(S, nuevoEst));
  				}
  			}
@@ -41,7 +41,7 @@ import aima.search.framework.SuccessorFunction;
  				if (estado.sePuedeMover(p, o)) {
  					Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
  					nuevoEst.mover(p, o);
- 					String S = "MOVE: pac " + p + " a  of " + o + " ==> Coste: " + nuevoEst.obtenerCosteEconomico();
+ 					String S = "MOVE: pac " + p + " a  of " + o + " ===> Coste: " + nuevoEst.obtenerCosteEconomico();
  					retVal.add(new Successor(S, nuevoEst));
  				}
  			}
