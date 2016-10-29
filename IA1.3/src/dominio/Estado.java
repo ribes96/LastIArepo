@@ -426,6 +426,14 @@ public class Estado {
 	public Estado(ArrayList<LinkedList<Integer>> OAP, ArrayList<Integer> PAO, double[] pesos) {
 		System.out.println("El tamaño de pesos es: " + pesos.length);
 		System.out.println("El tamaño de OAP es: " + OAP.size());
+		if (OAP == null || PAO == null) {
+			System.out.println("Alguno de los parametros pasados es nulo_____________________________");
+			//throw new Exception();
+		}
+		if (OAP.size() != pesos.length) {
+			System.out.println("La cantidad de ofertas y los pesos no son iguales");
+			//throw new Exception();
+		}
 		paquetesAOfertas = new ArrayList<Integer>();
 		ofertasAPaquetes = new ArrayList<LinkedList<Integer>>();
 		pesosActuales = new double[OAP.size()];
