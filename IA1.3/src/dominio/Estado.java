@@ -255,7 +255,7 @@ public class Estado {
 			return false; // ya está en esa oferta
 		System.out.println("El tamaño de pesos es " + pesosActuales.length + " y estamos accediendo a "
 				+ p);
-		return pesosActuales[p] + pac.getPeso() <= of.getPesomax();
+		return pesosActuales[t] + pac.getPeso() <= of.getPesomax();
 
 	}
 
