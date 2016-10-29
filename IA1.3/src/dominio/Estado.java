@@ -175,8 +175,10 @@ public class Estado {
 	 */
 	public double obtenerCosteEconomico() {
 		double coste = 0;
+		int i = 0;
 		for (Oferta of : ofertas) {
-			coste += of.getPrecio() + precioAlmacenamiento * of.getDias();
+			coste += of.getPrecio()*pesosActuales[i] + precioAlmacenamiento * of.getDias();
+			++i;
 		}
 		return coste;
 	}
@@ -253,8 +255,6 @@ public class Estado {
 
 		if (paquetesAOfertas.get(p) == t)
 			return false; // ya está en esa oferta
-		System.out.println("El tamaño de pesos es " + pesosActuales.length + " y estamos accediendo a "
-				+ p);
 		return pesosActuales[t] + pac.getPeso() <= of.getPesomax();
 
 	}
@@ -263,8 +263,16 @@ public class Estado {
 		return precioAlmacenamiento;
 	}
 
-	String aString() {
-		return null;
+	public String aString() {
+		String retVal = "";
+		for (int i = 0; i < paquetesAOfertas.size(); ++i) {
+			String s = "Paquete " + i + " a oferta " + paquetesAOfertas.get(i) + "\n";
+			retVal += s;
+		}
+		double coste = obtenerCosteEconomico();
+		String s = "----------------------------------\nCoste total: " + coste;
+		retVal += coste;
+		return retVal;
 	}
 
 	// Escritoras
@@ -288,8 +296,8 @@ public class Estado {
 					ofertasAPaquetes.add(new LinkedList<Integer>());
 				}
 				Random myRandom = new Random(seed);
-				System.out.println("El tamaño de paquetesAOfertas es " + paquetesAOfertas.size());
-				System.out.println("Mientras que el tamano de paquetes es " + paquetes.size());
+				//System.out.println("El tamaño de paquetesAOfertas es " + paquetesAOfertas.size());
+				//System.out.println("Mientras que el tamano de paquetes es " + paquetes.size());
 				for (int i = 0; i < paquetes.size(); ++i) {
 					boolean metido = false;
 					for (int j = 0; j < 1000 && !metido; ++j){ 
@@ -301,7 +309,7 @@ public class Estado {
 						}
 					}
 					if (!metido) System.out.println("----------------------------------Alarma--------------");
-					System.out.println("El tamaño de paquetesAOfertas es " + paquetesAOfertas.size() + " v2");
+					//System.out.println("El tamaño de paquetesAOfertas es " + paquetesAOfertas.size() + " v2");
 					pesosActuales[paquetesAOfertas.get(i)] += paquetes.get(i).getPeso();
 				}
 				for (int paquete : paquetesAOfertas)
@@ -369,8 +377,8 @@ public class Estado {
 		paquetesAOfertas.set(p1, o2);
 		paquetesAOfertas.set(p2, o1);
 
-		System.out.println("El valor de o1 y o2 es " + o1 + " " + o2);
-		System.out.println("La cantidad de ofertas que hay es " + ofertas.size());
+		//System.out.println("El valor de o1 y o2 es " + o1 + " " + o2);
+		//System.out.println("La cantidad de ofertas que hay es " + ofertas.size());
 		if (pac2 == null) System.out.println("pac2 es nulo");
 		if (pac1 == null) System.out.println("pac1 es nulo");
 		pesosActuales[o1] += pac2.getPeso() - pac1.getPeso();
@@ -405,8 +413,16 @@ public class Estado {
 	// Constructores
 
 	public Estado(ArrayList<LinkedList<Integer>> OAP, ArrayList<Integer> PAO, double[] pesos) {
-		System.out.println("El tamaño de pesos es: " + pesos.length);
-		System.out.println("El tamaño de OAP es: " + OAP.size());
+		//System.out.println("El tamaño de pesos es: " + pesos.length);
+		//System.out.println("El tamaño de OAP es: " + OAP.size());
+		if (OAP == null || PAO == null) {
+			System.out.println("Alguno de los parametros pasados es nulo_____________________________");
+			//throw new Exception();
+		}
+		if (OAP.size() != pesos.length) {
+			System.out.println("La cantidad de ofertas y los pesos no son iguales");
+			//throw new Exception();
+		}
 		paquetesAOfertas = new ArrayList<Integer>();
 		ofertasAPaquetes = new ArrayList<LinkedList<Integer>>();
 		pesosActuales = new double[OAP.size()];
@@ -423,7 +439,7 @@ public class Estado {
 		for (Integer i = 0; i < PAO.size(); ++i) {
 			paquetesAOfertas.add(Integer.valueOf(PAO.get(i)));
 		}
-
+		//System.out.println("Fin del metodo");
 	}
 
 	public ArrayList<LinkedList<Integer>> getOAP() {

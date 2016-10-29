@@ -10,7 +10,11 @@ import aima.search.framework.Search;
 import aima.search.framework.SearchAgent;
 import aima.search.informed.HillClimbingSearch;
 import aima.search.informed.SimulatedAnnealingSearch;
-import dominio.*;
+import dominio.Estado;
+import dominio.FuncionHeuristicaSimple;
+import dominio.FuncionSucesoraHillClimbing;
+import dominio.FuncionSucesoraSimulatedAnnealing;
+import dominio.PruebaDeFin;
 
 public class IA1 {
     
@@ -46,7 +50,7 @@ public class IA1 {
 		
 		
 		Estado estado = new Estado(precioAlmacenamiento, prop, seed, npac, seed, Estado.intToString(algoritmoInicial), seed);
-		System.out.println("Hola");
+		//System.out.println("Hola");
     	
     	int algoritmo;
 		do {
@@ -70,16 +74,18 @@ public class IA1 {
     private static void IA1HillClimbing(Estado estado) {
     	System.out.println("\nIA1 HillClimbing  -->");
         try {
+        	System.out.print(estado.aString());
+        	System.out.print("\n\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
             Problem problem =  new Problem(estado,new FuncionSucesoraHillClimbing(), new PruebaDeFin(), new FuncionHeuristicaSimple());
             Search search =  new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem,search);
             
             System.out.println();
+            
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
             System.out.println("Hemos terminado");
         } catch (Exception e) {
-			System.out.println("Hill Cimbing Exception");
             e.printStackTrace();
         }		
 	}
@@ -98,7 +104,7 @@ public class IA1 {
 		} while (k <= 1 || lambda <= 0.0 || iteraciones < 10);
 		System.out.println("\nIA15 Breadth First  -->");
         try {
-            Problem problem =  new Problem(estado,new FuncionSucesoraSimulatedAnnealing(), new PruebaDeFin());
+            Problem problem =  new Problem(estado,new FuncionSucesoraSimulatedAnnealing(), new PruebaDeFin(), new FuncionHeuristicaSimple());
             Search search =  new SimulatedAnnealingSearch(iteraciones,100,k,lambda);
             SearchAgent agent = new SearchAgent(problem,search);
             
@@ -127,6 +133,7 @@ public class IA1 {
         for (int i = 0; i < actions.size(); i++) {
             String action = (String) actions.get(i);
             System.out.println(action);
+            
         }
     }
     
