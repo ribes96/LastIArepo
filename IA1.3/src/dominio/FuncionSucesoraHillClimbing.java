@@ -26,9 +26,12 @@ import aima.search.framework.SuccessorFunction;
  				if (estado.sePuedeIntercambiar(i,j)) {
  					//borrar esta linea de abajo
  					if (estado.getOAP() == null) System.out.println("Tururú");
+ 					
+ 					
  					Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
  					nuevoEst.intercambiar(i, j);
- 					retVal.add(new Successor("descripcion", nuevoEst));
+ 					String S = "SWAP: " + i + " " + j + " ==> Coste: " + nuevoEst.obtenerCosteEconomico();
+ 					retVal.add(new Successor(S, nuevoEst));
  				}
  			}
  		}
@@ -38,11 +41,12 @@ import aima.search.framework.SuccessorFunction;
  				if (estado.sePuedeMover(p, o)) {
  					Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
  					nuevoEst.mover(p, o);
- 					retVal.add(new Successor("descripcion2", nuevoEst));
+ 					String S = "MOVE: pac " + p + " a  of " + o + " ==> Coste: " + nuevoEst.obtenerCosteEconomico();
+ 					retVal.add(new Successor(S, nuevoEst));
  				}
  			}
  		}
- 		System.out.println("Hola hola");
+ 		System.out.println("Hemos generado " + retVal.size() + "estados sucesores");
  		return retVal;
  	}
  
