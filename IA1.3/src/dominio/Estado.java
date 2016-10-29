@@ -288,13 +288,14 @@ public class Estado {
 		try {
 			for (int i = 0; i < ofertas.size(); ++i)
 				pesosActuales[i] = 0;
+			paquetesAOfertas = new ArrayList<Integer>();
+			ofertasAPaquetes = new ArrayList<LinkedList<Integer>>();
+			for (int r = 0; r < ofertas.size(); ++r) {
+				ofertasAPaquetes.add(new LinkedList<Integer>());
+			}
 			switch (algoritmo) {
 			case aleatorio:
-				paquetesAOfertas = new ArrayList<Integer>();
-				ofertasAPaquetes = new ArrayList<LinkedList<Integer>>();
-				for (int r = 0; r < ofertas.size(); ++r) {
-					ofertasAPaquetes.add(new LinkedList<Integer>());
-				}
+
 				Random myRandom = new Random(seed);
 				//System.out.println("El tamaño de paquetesAOfertas es " + paquetesAOfertas.size());
 				//System.out.println("Mientras que el tamano de paquetes es " + paquetes.size());
