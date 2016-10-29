@@ -364,25 +364,24 @@ public class Estado {
 					pesosActuales[i] = ofertas.get(i).getPesomax() - espacioEnOferta.get(i);
 					*/
 				//double prop = 1;
-				int indexOferta = 0;
-				int miVector[] = new int[paquetes.size()];
+				indexOferta = 0;
+				int Vector[] = new int[paquetes.size()];
 				for (int i=0 ; i < paquetes.size(); ++i){
-					miVector[i] = i;
+					Vector[i] = i;
 				}
-				permutarAleatorio(miVector);
+				permutarAleatorio(Vector);
 				for (int i =0; i < paquetes.size(); ++i){
-					int miPaquete = miVector[i];
+					int miPaquete = Vector[i];
 					if(ofertas.get(indexOferta).getPesomax() >= pesosActuales[indexOferta]+paquetes.get(miPaquete).getPeso()){
 						paquetesAOfertas.add(indexOferta);
 						ofertasAPaquetes.get(indexOferta).add(miPaquete);
 						pesosActuales[indexOferta]+=paquetes.get(miPaquete).getPeso();
-						++indexOferta;
-						indexOferta %= ofertas.size();
 					}
 					else --i;
 					++indexOferta;
 					indexOferta %= ofertas.size();
 				}
+				break;
 			default:
 				throw new IllegalArgumentException("No existe este algoritmo");
 			}

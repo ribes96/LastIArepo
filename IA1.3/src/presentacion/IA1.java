@@ -44,9 +44,9 @@ public class IA1 {
 		
 		int algoritmoInicial;
 		do {
-			System.out.println("Qué algoritmo de generación del estado inicial quieres usar (1. Aleatorio; 2. Uno a uno 3. Aleatorio)?");
+			System.out.println("Qué algoritmo de generación del estado inicial quieres usar (1. Aleatorio; 2. Rellenando ofertas por orden 3. Alternando paquetes y ofertas)?");
 			algoritmoInicial = in.nextInt();
-		} while (algoritmoInicial != 1 && algoritmoInicial != 2);
+		} while (algoritmoInicial != 1 && algoritmoInicial != 2 && algoritmoInicial != 3);
 		
 		
 		Estado estado = new Estado(precioAlmacenamiento, prop, seed, npac, seed, Estado.intToString(algoritmoInicial), seed);
@@ -108,7 +108,9 @@ public class IA1 {
             Search search =  new SimulatedAnnealingSearch(iteraciones,100,k,lambda);
             SearchAgent agent = new SearchAgent(problem,search);
             System.out.println("TAMANY AGENT" + ' ' + agent.getActions().size() );
+
             System.out.println();
+
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
         } catch (Exception e) {

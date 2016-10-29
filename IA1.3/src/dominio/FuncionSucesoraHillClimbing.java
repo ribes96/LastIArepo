@@ -46,7 +46,7 @@ import aima.search.framework.SuccessorFunction;
  				}
  			}
  		}
- 		System.out.println("Hemos generado " + retVal.size() + "estados sucesores");
+ 		System.out.println("Hemos generado " + retVal.size() + " estados sucesores");
  		return retVal;
  	}
  
