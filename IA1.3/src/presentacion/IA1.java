@@ -10,10 +10,7 @@ import aima.search.framework.Search;
 import aima.search.framework.SearchAgent;
 import aima.search.informed.HillClimbingSearch;
 import aima.search.informed.SimulatedAnnealingSearch;
-import dominio.Estado;
-import dominio.FuncionSucesoraHillClimbing;
-import dominio.FuncionSucesoraSimulatedAnnealing;
-import dominio.PruebaDeFin;
+import dominio.*;
 
 public class IA1 {
     
@@ -73,7 +70,7 @@ public class IA1 {
     private static void IA1HillClimbing(Estado estado) {
     	System.out.println("\nIA1 HillClimbing  -->");
         try {
-            Problem problem =  new Problem(estado,new FuncionSucesoraHillClimbing(), new PruebaDeFin());
+            Problem problem =  new Problem(estado,new FuncionSucesoraHillClimbing(), new PruebaDeFin(), new FuncionHeuristicaSimple());
             Search search =  new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem,search);
             
@@ -82,6 +79,7 @@ public class IA1 {
             printInstrumentation(agent.getInstrumentation());
             System.out.println("Hemos terminado");
         } catch (Exception e) {
+			System.out.println("Hill Cimbing Exception");
             e.printStackTrace();
         }		
 	}
