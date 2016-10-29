@@ -289,7 +289,7 @@ public class Estado {
 	/**
 	 * Funcion Generadora de la solucion inicial
 	 * 
-	 * @param algoritmo
+	 * @param algoritmo utilitzat per generar la solucio inicial
 	 * @param seed
 	 * @pre Algoritmo es uno de las constantes de clase
 	 * @post El parametro implicito tiene solucion inicial
