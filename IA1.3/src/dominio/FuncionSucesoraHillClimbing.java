@@ -24,7 +24,7 @@
  				if (estado.sePuedeIntercambiar(i,j)) {
  					//borrar esta linea de abajo
  					if (estado.getOAP() == null) System.out.println("Tururú");
- 					Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO());
+ 					Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
  					nuevoEst.intercambiar(i, j);
  					estados.add(nuevoEst);
  				}
@@ -34,7 +34,7 @@
  		for (int p = 0; p < estado.getNumPaquetes(); ++p) {
  			for (int o = 0; o < estado.getNumOfertas(); ++o) {
  				if (estado.sePuedeMover(p, o)) {
- 					Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO());
+ 					Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
  					nuevoEst.mover(p, o);
  					estados.add(nuevoEst);
  				}

@@ -272,7 +272,8 @@ public class Estado {
 
 		if (paquetesAOfertas.get(p) == t)
 			return false; // ya está en esa oferta
-
+		System.out.println("El tamaño de pesos es " + pesosActuales.length + " y estamos accediendo a "
+				+ p);
 		return pesosActuales[p] + pac.getPeso() <= of.getPesomax();
 
 	}
@@ -422,11 +423,15 @@ public class Estado {
 
 	// Constructores
 
-	public Estado(ArrayList<LinkedList<Integer>> OAP, ArrayList<Integer> PAO) {
+	public Estado(ArrayList<LinkedList<Integer>> OAP, ArrayList<Integer> PAO, double[] pesos) {
+		System.out.println("El tamaño de pesos es: " + pesos.length);
+		System.out.println("El tamaño de OAP es: " + OAP.size());
 		paquetesAOfertas = new ArrayList<Integer>();
 		ofertasAPaquetes = new ArrayList<LinkedList<Integer>>();
+		pesosActuales = new double[OAP.size()];
 		if (OAP == null) System.out.println("Tenemos un objeto nulo");
 		for (Integer i = 0; i < OAP.size(); ++i) {
+			pesosActuales[i] = pesos[i];
 			LinkedList<Integer> miLista = new LinkedList<Integer>();
 			for (Integer miInt : OAP.get(i)) {
 				miLista.add(Integer.valueOf(miInt));
@@ -447,6 +452,9 @@ public class Estado {
 
 	public ArrayList<Integer> getPAO() {
 		return paquetesAOfertas;
+	}
+	public double[] getPesosActuales() {
+		return pesosActuales;
 	}
 
 }

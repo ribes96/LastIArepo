@@ -80,6 +80,7 @@ public class IA1 {
             System.out.println();
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
+            System.out.println("Hemos terminado");
         } catch (Exception e) {
             e.printStackTrace();
         }		
