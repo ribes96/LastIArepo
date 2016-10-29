@@ -44,7 +44,7 @@ public class IA1 {
 		
 		int algoritmoInicial;
 		do {
-			System.out.println("Qué algoritmo de generación del estado inicial quieres usar (1. Aleatorio; 2. Un paquete por transporte; 3. Aleatorio)?");
+			System.out.println("Qué algoritmo de generación del estado inicial quieres usar (1. Aleatorio; 2. Uno a uno 3. Aleatorio)?");
 			algoritmoInicial = in.nextInt();
 		} while (algoritmoInicial != 1 && algoritmoInicial != 2);
 		
@@ -75,7 +75,7 @@ public class IA1 {
     	System.out.println("\nIA1 HillClimbing  -->");
         try {
         	System.out.print(estado.aString());
-        	System.out.print("\n\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
+        	System.out.println("\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             Problem problem =  new Problem(estado,new FuncionSucesoraHillClimbing(), new PruebaDeFin(), new FuncionHeuristicaSimple());
             Search search =  new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem,search);

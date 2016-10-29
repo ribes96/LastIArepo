@@ -316,22 +316,20 @@ public class Estado {
 				for (int paquete : paquetesAOfertas)
 					ofertasAPaquetes.get(paquetesAOfertas.get(paquete)).add(paquete);
 				break;
-			case unoAUno:
-				/*paquetesAOfertas = new ArrayList<Integer>();
-				for (int i = 0; i < paquetes.size(); ++i) {
-					paquetesAOfertas.add(i);
-					pesosActuales[paquetesAOfertas.get(i)] += paquetes.get(i).getPeso();
-				}
-				for (int paquete : paquetesAOfertas)
-
-				*/
+				case unoAUno:
 				double prop = 1;
 				int indexOferta = 0;
+				int miVector[] = new int[paquetes.size()];
+				for (int i=0 ; i < paquetes.size(); ++i){
+					miVector[i] = i;
+				}
+				permutarAleatorio(miVector);
 				for (int i =0; i < paquetes.size(); ++i){
-					if(ofertas.get(indexOferta).getPesomax()*prop >= pesosActuales[indexOferta]+paquetes.get(i).getPeso()){
+					int miPaquete = miVector[i];
+					if(ofertas.get(indexOferta).getPesomax()*prop >= pesosActuales[indexOferta]+paquetes.get(miPaquete).getPeso()){
 						paquetesAOfertas.add(indexOferta);
-						ofertasAPaquetes.get(indexOferta).add(i);
-						pesosActuales[indexOferta]+=paquetes.get(i).getPeso();
+						ofertasAPaquetes.get(indexOferta).add(miPaquete);
+						pesosActuales[indexOferta]+=paquetes.get(miPaquete).getPeso();
 					}
 					else{
 						indexOferta++;
@@ -366,6 +364,16 @@ public class Estado {
 			System.out.println(e.getMessage());
 		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
+		}
+	}
+
+	private static void permutarAleatorio(int miVector[]) {
+		Random myRandom = new Random();
+		for (int i=0; i < miVector.length;++i){
+			int x = myRandom.nextInt(miVector.length-i )+1;
+			int aux = miVector[i];
+			miVector[i] = miVector[x];
+			miVector[x] = miVector[aux];
 		}
 	}
 
