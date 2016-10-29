@@ -254,7 +254,7 @@ public class Estado {
 		if (paquetesAOfertas.get(p) == t)
 			return false; // ya está en esa oferta
 		System.out.println("El tamaño de pesos es " + pesosActuales.length + " y estamos accediendo a "
-				+ p);
+				+ t);
 		return pesosActuales[t] + pac.getPeso() <= of.getPesomax();
 
 	}
@@ -264,7 +264,8 @@ public class Estado {
 	}
 
 	String aString() {
-		return null;
+		return "Este es el resultado";
+		//return null;
 	}
 
 	// Escritoras
@@ -431,7 +432,7 @@ public class Estado {
 		for (Integer i = 0; i < PAO.size(); ++i) {
 			paquetesAOfertas.add(Integer.valueOf(PAO.get(i)));
 		}
-
+		System.out.println("Fin del metodo");
 	}
 
 	public ArrayList<LinkedList<Integer>> getOAP() {
