@@ -28,11 +28,11 @@ public class Estado {
 	private ArrayList<Integer> paquetesAOfertas;
 
 	/**
-	 * Retorna la cantidad de días antes del máximo permitido se enviará el
+	 * Funcion que calcula la cantidad de días antes del máximo permitido se enviará el
 	 * paquete en una asignación concreta
 	 * 
-	 * @param p
-	 * @return
+	 * @param p Identificador del paquete a consultar.
+	 * @return La funcion devuelve los dias antes del maximo poermitido, de otro modo devuelve 1
 	 */
 	private Integer diasAntes(Integer p) {
 		int diasHastaEntrega = ofertas.get(paquetesAOfertas.get(p)).getDias();
@@ -76,14 +76,10 @@ public class Estado {
 
 	/**
 	 * 
-	 * @param precio
-	 *            Precio de almacenamiento
-	 * @param pacs
-	 *            Paquetes a enviar
-	 * @param ofs
-	 *            Ofertas de transporte
-	 * @param algoritmo
-	 *            Para generar la solución inicial
+	 * @param precio Precio de almacenamiento
+	 * @param pacs Paquetes a enviar
+	 * @param ofs Ofertas de transporte
+	 * @param algoritmo Para generar la solución inicial
 	 * @long seed Para generar la solución inicial
 	 */
 	public Estado(double precio, Paquetes pacs, Transporte ofs, String algoritmo, long seed) {
@@ -98,21 +94,13 @@ public class Estado {
 	/**
 	 * Crea un estado y una solución aleatorios según los parámetros
 	 * 
-	 * @param precio
-	 *            Precio de almacenamiento
-	 * @param prop
-	 *            La proporción entre el peso a enviar y el máximo enviable
-	 * @param seedTrans
-	 *            Seed para generar el transporte (las ofertas)
-	 * @param npaq
-	 *            Cantidad de paquetes aleatorios a generar
-	 * @param seedPac
-	 *            Seed para generar los paquetes
-	 * @param algoritmo
-	 *            Indica el algoritmo a utilizar para generar la solución
-	 *            inicial
-	 * @param seedAlg
-	 *            Seed para generar la solución inicial
+	 * @param precio Precio de almacenamiento
+	 * @param prop La proporción entre el peso a enviar y el máximo enviable
+	 * @param seedTrans Seed para generar el transporte (las ofertas)
+	 * @param npaq Cantidad de paquetes aleatorios a generar
+	 * @param seedPac Seed para generar los paquetes
+	 * @param algoritmo Indica el algoritmo a utilizar para generar la solución inicial
+	 * @param seedAlg Seed para generar la solución inicial
 	 */
 	public Estado(double precio, double prop, int seedTrans, int npaq, int seedPac, String algoritmo, long seedAlg) {
 		paquetes = new Paquetes(npaq, seedPac);
@@ -127,15 +115,10 @@ public class Estado {
 	/**
 	 * Crea un estado y una solución aleatorios según los parámetros
 	 * 
-	 * @param precio
-	 *            Precio de almacenamiento
-	 * @param prop
-	 *            La proporción entre el peso a enviar y el máximo enviable
-	 * @param npaq
-	 *            Cantidad de paquetes aleatorios a generar
-	 * @param algoritmo
-	 *            Indica el algoritmo a utilizar para generar la solución
-	 *            inicial
+	 * @param precio Precio de almacenamiento
+	 * @param prop La proporción entre el peso a enviar y el máximo enviable
+	 * @param npaq Cantidad de paquetes aleatorios a generar
+	 * @param algoritmo Indica el algoritmo a utilizar para generar la solución inicial
 	 */
 	public Estado(double precio, double prop, int npaq, String algoritmo) {
 		Random rnd = new Random();
@@ -171,7 +154,7 @@ public class Estado {
 
 	// Consultoras
 	/**
-	 * 
+	 * Funcion que devuelve el numero total de paquetes
 	 * @return
 	 */
 	int getNumPaquetes() {
@@ -179,7 +162,7 @@ public class Estado {
 	}
 
 	/**
-	 * 
+	 * Funcion que devuelve el numero total de ofertas
 	 * @return
 	 */
 	int getNumOfertas() {
@@ -187,7 +170,7 @@ public class Estado {
 	}
 
 	/**
-	 *
+	 * Funcion que devuelve el coste economico total
 	 * @return
 	 */
 	public double obtenerCosteEconomico() {
@@ -198,6 +181,10 @@ public class Estado {
 		return coste;
 	}
 
+	/**
+	 * Funcion que devuelve el indice de felicidad total
+	 * Funcion que devuelve el numero total de@return
+	 */
 	public Integer obtenerFelicidad() {
 		Integer fel = 0;
 		for (Integer i = 0; i < paquetesAOfertas.size(); ++i) {
@@ -207,10 +194,9 @@ public class Estado {
 	}
 
 	/**
-	 * Funcion que retorna todos los paquetes que estan asignados a la oferta t
+	 * Funcion que devuelve todos los paquetes que estan asignados a la oferta t
 	 * 
-	 * @param t
-	 *            identificador de la oferta t.
+	 * @param  t identificador de la oferta t.
 	 * @return Conjunto de paquetes assignados a la oferta t.
 	 */
 	Paquetes obtenerListaDePaquetes(Integer t) {
@@ -227,10 +213,8 @@ public class Estado {
 	 * Funcion que indica si se podra realizar el cambio de dos paquetes entre
 	 * ofertas distintas
 	 * 
-	 * @param p1
-	 *            Identificador del primer paquete.
-	 * @param p2
-	 *            Identificador del segundo paquete.
+	 * @param p1 Identificador del primer paquete.
+	 * @param p2 Identificador del segundo paquete.
 	 * @return El resultado sera falso si los paquetes estan en la misma oferta
 	 *         o el cambio supera el peso maximo. De otro modo devolvera cierto.
 	 */
@@ -257,11 +241,8 @@ public class Estado {
 	/**
 	 * Funcion que indica si se puede mover el paquete p a la oferta t.
 	 * 
-	 * @param p
-	 *            Identificador del paquete a mover
-	 * @param t
-	 *            Identificador de la oferta a la que queremos asignar el
-	 *            paquete p
+	 * @param p Identificador del paquete a mover
+	 * @param t Identificador de la oferta a la que queremos asignar el paquete p
 	 * @return El resultado sera falso si el paquete p esta en la oferta t o si
 	 *         el hecho de asignar el paquete p a la oferta t supera el peso
 	 *         maximo. De otro modo devolvera cierto
