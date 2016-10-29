@@ -316,7 +316,9 @@ public class Estado {
 				for (int paquete : paquetesAOfertas)
 					ofertasAPaquetes.get(paquetesAOfertas.get(paquete)).add(paquete);
 				break;
-				case unoAUno:
+			case unoAUno:
+				//Para cada oferta, la llena hasta una cierta proporción, y cuando ya no cabe pasa 
+				//a la siguiente oferta
 				double prop = 1;
 				int indexOferta = 0;
 				int miVector[] = new int[paquetes.size()];
@@ -339,6 +341,8 @@ public class Estado {
 				}
 				break;
 			case rellenar:
+				//Pone cada paquete en una oferta distinta, hasta que se queda sin, y vuelve a empezar
+				/*
 				ofertasAPaquetes = new ArrayList<LinkedList<Integer>>(ofertas.size());
 				ArrayList<Double> espacioEnOferta = new ArrayList<Double>();
 				for (int i = 0; i < ofertas.size(); ++i)
@@ -357,6 +361,27 @@ public class Estado {
 				}
 				for (int i = 0; i < pesosActuales.length; ++i)
 					pesosActuales[i] = ofertas.get(i).getPesomax() - espacioEnOferta.get(i);
+					*/
+				//double prop = 1;
+				int indexOferta = 0;
+				int miVector[] = new int[paquetes.size()];
+				for (int i=0 ; i < paquetes.size(); ++i){
+					miVector[i] = i;
+				}
+				permutarAleatorio(miVector);
+				for (int i =0; i < paquetes.size(); ++i){
+					int miPaquete = miVector[i];
+					if(ofertas.get(indexOferta).getPesomax() >= pesosActuales[indexOferta]+paquetes.get(miPaquete).getPeso()){
+						paquetesAOfertas.add(indexOferta);
+						ofertasAPaquetes.get(indexOferta).add(miPaquete);
+						pesosActuales[indexOferta]+=paquetes.get(miPaquete).getPeso();
+						++indexOferta;
+						indexOferta %= ofertas.size();
+					}
+					else --i;
+					++indexOferta;
+					indexOferta %= ofertas.size();
+				}
 			default:
 				throw new IllegalArgumentException("No existe este algoritmo");
 			}
