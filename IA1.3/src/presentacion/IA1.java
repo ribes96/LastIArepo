@@ -19,8 +19,9 @@ import dominio.PruebaDeFin;
 public class IA1 {
     
     public static void main(String[] args){
-    	Scanner in = new Scanner(System.in);
-		
+        Scanner in = new Scanner(System.in);
+
+
     	double precioAlmacenamiento = 0, prop = 1;
 		int npac = 0;
 		
@@ -57,7 +58,9 @@ public class IA1 {
 			System.out.println("Qué algoritmo de resolución quieres usar (1. Hill Climbing; 2. Simulated Annealing)?");
 			algoritmo = in.nextInt();
 		} while (algoritmo != 1 && algoritmo != 2);
-		
+
+        long startTime = System.currentTimeMillis();
+
 		switch (algoritmo){
 		case 1:
 			IA1HillClimbing(estado);
@@ -68,6 +71,9 @@ public class IA1 {
 		default:
 			System.out.println("Error intern");
 		}
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println(elapsedTime);
 		in.close();
     }
     
