@@ -18,8 +18,7 @@ import aima.search.framework.SuccessorFunction;
  	@SuppressWarnings("rawtypes")
  	public List getSuccessors(Object state) {
  		Estado estado = (Estado)state;
- 		ArrayList retVal = new ArrayList();
- 		FuncionHeuristicaSimple FHS = new FuncionHeuristicaSimple();
+ 		ArrayList<Successor> retVal = new ArrayList<Successor>();
  		//Todos los posibles swaps
  		for (int i = 0; i < estado.getNumPaquetes(); ++i) {
  			for (int j = i+1; j < estado.getNumPaquetes(); ++j) {

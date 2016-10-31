@@ -12,7 +12,7 @@ public class FuncionSucesoraSimulatedAnnealing implements SuccessorFunction {
 	@SuppressWarnings("rawtypes")
 	public List getSuccessors(Object state) {
 		Estado estado = (Estado)state;
-		ArrayList retVal = new ArrayList();
+		ArrayList<Successor> retVal = new ArrayList<Successor>();
 		FuncionHeuristicaSimple FHS = new FuncionHeuristicaSimple();
 		Random myRandom = new Random();
 		Integer numMoves = estado.getNumPaquetes()*estado.getNumOfertas();
@@ -20,28 +20,30 @@ public class FuncionSucesoraSimulatedAnnealing implements SuccessorFunction {
 		Integer cosa = myRandom.nextInt(numMoves + numSwaps);
 		if (cosa < numMoves) {
 			//moves
-			Integer aleaPac = myRandom.nextInt(estado.getNumPaquetes());
+			Integer aleaPac; 
 			Integer aOferta;
 			do {
+				aleaPac = myRandom.nextInt(estado.getNumPaquetes());
 				aOferta = myRandom.nextInt(estado.getNumOfertas());
 			} while (aOferta.equals(estado.getPAO().get(aleaPac)) || !estado.sePuedeMover(aleaPac, aOferta));
 			Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
 			nuevoEst.mover(aleaPac, aOferta);
 			double v = FHS.getHeuristicValue(nuevoEst);
-			String S = "MOVE  " + aleaPac + " " + aOferta + " Coste(" + v +") ===> " + nuevoEst.aString();
+			String S = "MOVE  " + aleaPac + " " + aOferta + " Coste(" + v +") ===> " + nuevoEst.obtenerCosteEconomico();
 			retVal.add(new Successor(S, nuevoEst));
 		}
 		else {
 			//swaps
-			Integer i = myRandom.nextInt(estado.getNumPaquetes());
+			Integer i;
 			Integer j;
 			do {
+				i = myRandom.nextInt(estado.getNumPaquetes());
 				j = myRandom.nextInt(estado.getNumPaquetes());
 			} while (i.equals(j) || !estado.sePuedeIntercambiar(i, j));
 			Estado nuevoEst = new Estado(estado.getOAP(),estado.getPAO(), estado.getPesosActuales());
 			nuevoEst.intercambiar(i, j);
 			double v = FHS.getHeuristicValue(nuevoEst);
-			String S = "SWAP  " + i + " " + j + " Coste(" + v +") ===> " + nuevoEst.aString();
+			String S = "SWAP  " + i + " " + j + " Coste(" + v +") ===> " + nuevoEst.obtenerCosteEconomico();
 			retVal.add(new Successor(S, nuevoEst));
 		}
 		return retVal;

@@ -475,7 +475,6 @@ public class Estado {
 		paquetesAOfertas = new ArrayList<Integer>();
 		ofertasAPaquetes = new ArrayList<LinkedList<Integer>>();
 		pesosActuales = new double[OAP.size()];
-		if (OAP == null) System.out.println("Tenemos un objeto nulo");
 		for (Integer i = 0; i < OAP.size(); ++i) {
 			pesosActuales[i] = pesos[i];
 			LinkedList<Integer> miLista = new LinkedList<Integer>();

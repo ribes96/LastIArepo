@@ -108,7 +108,7 @@ public class IA1 {
 			lambda = in.nextDouble();
 			iteraciones = in.nextInt();
 		} while (k < 1 || lambda <= 0.0 || iteraciones < 10);
-		System.out.println("\nIA15 Breadth First  -->");
+		System.out.println("\nIA1 Simulated Annealing  -->");
         try {
             Problem problem =  new Problem(estado,new FuncionSucesoraSimulatedAnnealing(), new PruebaDeFin(), new FuncionHeuristicaSimple());
             SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(iteraciones,1000,k,lambda);
@@ -117,7 +117,7 @@ public class IA1 {
 
             System.out.println();
 
-            //printActions(agent.getActions());
+            printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,7 +141,6 @@ public class IA1 {
         for (int i = 0; i < actions.size(); i++) {
             String action = (String) actions.get(i);
             System.out.println(action);
-            
         }
     }
     
