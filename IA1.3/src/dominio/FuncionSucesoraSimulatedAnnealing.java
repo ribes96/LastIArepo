@@ -10,6 +10,11 @@ import aima.search.framework.SuccessorFunction;
 public class FuncionSucesoraSimulatedAnnealing implements SuccessorFunction {
 
 	@SuppressWarnings("rawtypes")
+	/**
+	 * Funcion que dado un estado genera una estado. Estado ha sido generado aleatoriamente. Si es mejor que el anterior,
+	 * se selecciona directamente, de otro modo se selecciona con una cierta probabilidad.
+	 * @return lista con estado sucesor
+	 */
 	public List getSuccessors(Object state) {
 		Estado estado = (Estado)state;
 		ArrayList<Successor> retVal = new ArrayList<Successor>();

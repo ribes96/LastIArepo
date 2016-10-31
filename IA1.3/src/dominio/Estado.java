@@ -13,9 +13,7 @@ import IA.Azamon.Paquete;
 import IA.Azamon.Paquetes;
 import IA.Azamon.Transporte;
 
-/**
- *
- */
+
 public class Estado {
 	// Atributos
 	private static double precioAlmacenamiento;

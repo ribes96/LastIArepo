@@ -9,13 +9,14 @@ import java.util.List;
 import aima.search.framework.Successor;
 import aima.search.framework.SuccessorFunction;
  
- /**
-  * @author becarint
-  *
-  */
- public class FuncionSucesoraHillClimbing implements SuccessorFunction {
+  public class FuncionSucesoraHillClimbing implements SuccessorFunction {
  
  	@SuppressWarnings("rawtypes")
+	/**
+	 * Funcion que dado un estado inicial, comprueba todos los estados sucesores posibles que se prodrian realizar con
+	 * las operaciones swap i move
+	 * @return lista de todos los estados succesores
+	 */
  	public List getSuccessors(Object state) {
  		Estado estado = (Estado)state;
  		ArrayList<Successor> retVal = new ArrayList<Successor>();
