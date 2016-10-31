@@ -75,7 +75,7 @@ public class Estado {
 	// Constructores
 
 	/**
-	 * 
+	 * Crea un estado y una solución aleatorios según los parámetros
 	 * @param precio Precio de almacenamiento
 	 * @param pacs Paquetes a enviar
 	 * @param ofs Ofertas de transporte
@@ -134,9 +134,9 @@ public class Estado {
 	// Modificadoras
 
 	/**
-	 *
-	 * @param ofsApacs
-	 * @param pacsAofs
+	 *Funcion que hace la relacion de asignacion de ofertas a paquetes i de paquetes a ofertas
+	 * @param ofsApacs Lista de las ofertas para cada paquetes
+	 * @param pacsAofs Lista de los paquetes para cada oferta
 	 */
 	public void hacerAsignacion(ArrayList<LinkedList<Integer>> ofsApacs, ArrayList<Integer> pacsAofs) {
 		ofertasAPaquetes = ofsApacs;
@@ -155,7 +155,7 @@ public class Estado {
 	// Consultoras
 	/**
 	 * Funcion que devuelve el numero total de paquetes
-	 * @return
+	 * @return Numero total de paquetes
 	 */
 	int getNumPaquetes() {
 		return paquetes.size();
@@ -163,7 +163,7 @@ public class Estado {
 
 	/**
 	 * Funcion que devuelve el numero total de ofertas
-	 * @return
+	 * @return Numero total de ofertas
 	 */
 	int getNumOfertas() {
 		return ofertas.size();
@@ -171,13 +171,13 @@ public class Estado {
 
 	/**
 	 * Funcion que devuelve el coste economico total
-	 * @return
+	 * @return Suma total del coste economico total
 	 */
 	public double obtenerCosteEconomico() {
 		double coste = 0;
 		int i = 0;
 		for (Oferta of : ofertas) {
-			coste += of.getPrecio()*pesosActuales[i] + precioAlmacenamiento * of.getDias();
+			coste += of.getPrecio()*pesosActuales[i] + precioAlmacenamiento * of.getDias()*pesosActuales[i];
 			++i;
 		}
 		return coste;
@@ -185,7 +185,8 @@ public class Estado {
 
 	/**
 	 * Funcion que devuelve el indice de felicidad total
-	 * Funcion que devuelve el numero total de@return
+	 *
+	 * @return Suma total de las felicidades
 	 */
 	public Integer obtenerFelicidad() {
 		Integer fel = 0;
@@ -198,7 +199,7 @@ public class Estado {
 	/**
 	 * Funcion que devuelve todos los paquetes que estan asignados a la oferta t
 	 * 
-	 * @param  t identificador de la oferta t.
+	 * @param  t Identificador de la oferta t
 	 * @return Conjunto de paquetes assignados a la oferta t.
 	 */
 	public Paquetes obtenerListaDePaquetes(Integer t) {
@@ -259,10 +260,18 @@ public class Estado {
 
 	}
 
+	/**
+	 * Funcion que devuelve el precio de almacenamiento de un paquete
+	 * @return precio de almacenamiento
+	 */
 	double obtenerPrecioAlmacenamiento() {
 		return precioAlmacenamiento;
 	}
 
+	/**
+	 * Funcion que escribe toda la asignacion de paquetes a ofertas i devuelve el coste total del problema
+	 * @return Devuelve un String con la informacion de las asignaciones i el coste total
+	 */
 	public String aString() {
 		String retVal = "";
 		for (int i = 0; i < paquetesAOfertas.size(); ++i) {
@@ -280,7 +289,7 @@ public class Estado {
 	 * Funcion Generadora de la solucion inicial
 	 * 
 	 * @param algoritmo utilitzat per generar la solucio inicial
-	 * @param seed
+	 * @param seed para generar el transporte (las ofertas)
 	 * @pre Algoritmo es uno de las constantes de clase
 	 * @post El parametro implicito tiene solucion inicial
 	 */
@@ -392,6 +401,10 @@ public class Estado {
 		}
 	}
 
+	/**
+	 * Funcion que dado un vector realiza una serie de permutaciones aleatorias en el
+	 * @param miVector Vector que deseamos permutar
+	 */
 	private static void permutarAleatorio(int miVector[]) {
 		Random myRandom = new Random();
 		for (int i=0; i < miVector.length;++i){
@@ -402,6 +415,12 @@ public class Estado {
 		}
 	}
 
+	/**
+	 * Funcion que intercanvia dos paquetes de sus ofertas
+	 * @pre existen los paquetes con identifiador p1 i p2
+	 * @param p1 Identificador del primer paquete
+	 * @param p2 Identificador del segundo paquete
+	 */
 	void intercambiar(Integer p1, Integer p2) {
 		Paquete pac1 = paquetes.get(p1);
 		Paquete pac2 = paquetes.get(p2);
@@ -434,6 +453,12 @@ public class Estado {
 		pesosActuales[o2] += pac1.getPeso() - pac2.getPeso();
 	}
 
+	/**
+	 * Funcion que mueve un paquete p a una oferta t
+	 * @pre Existen el paquete p i la oferta t
+	 * @param p identificador del paquete
+	 * @param t identificador de la oferta
+	 */
 	void mover(Integer p, Integer t) {
 		Paquete pac = paquetes.get(p);
 
@@ -461,6 +486,13 @@ public class Estado {
 
 	// Constructores
 
+	/**
+	 * Funcion que crea un estado nuevo dado una lista de paquetes a ofertas y de ofertas a paquetes y un vector con
+	 * los pesos de cada una
+	 * @param OAP lista de las ofertas para cada paquete
+	 * @param PAO lista de los paquetes para cada oferta
+	 * @param pesos lista de los pesos de las ofertas
+	 */
 	public Estado(ArrayList<LinkedList<Integer>> OAP, ArrayList<Integer> PAO, double[] pesos) {
 		//System.out.println("El tamaño de pesos es: " + pesos.length);
 		//System.out.println("El tamaño de OAP es: " + OAP.size());
@@ -491,15 +523,30 @@ public class Estado {
 		//System.out.println("Fin del metodo");
 	}
 
+	/**
+	 * Funcion que devuelve una lista de las ofertas que hay para cada paquetes
+	 * @return Lista de las ofertas para cada paquete
+	 */
 	public ArrayList<LinkedList<Integer>> getOAP() {
 		if (ofertasAPaquetes == null) System.out.println("Patata");
 		return ofertasAPaquetes;
 	}
 
-	public ArrayList<Integer> getPAO() {
+	/**
+	 * Funcion que devuelve una lista de los paquetes que hay en cada oferta
+	 * @return Lista de los paquetes a cada oferta
+	 */
+	public ArrayList<Integer> getPAO()
+	{
 		return paquetesAOfertas;
 	}
-	public double[] getPesosActuales() {
+
+	/**
+	 * Funcion que devuelve un vector con los pesos de cada oferta
+	 * @return Contenedor de los pesos actuales de cada oferta
+	 */
+	public double[] getPesosActuales()
+	{
 		return pesosActuales;
 	}
 
